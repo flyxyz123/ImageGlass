@@ -432,9 +432,9 @@ namespace ImageGlass {
                 Configs.IsRecursiveLoading,
                 new Predicate<FileInfo>((FileInfo fi) => {
                     // KBR 20180607 Rework predicate to use a FileInfo instead of the filename.
-                    // By doing so, can use the attribute data already loaded into memory, 
+                    // By doing so, can use the attribute data already loaded into memory,
                     // instead of fetching it again (via File.GetAttributes). A re-fetch is
-                    // very slow across network paths. For me, improves image load from 4+ 
+                    // very slow across network paths. For me, improves image load from 4+
                     // seconds to 0.4 seconds for a specific network path.
 
                     if (fi.FullName == null) // KBR not sure why but occasionally getting null filename
@@ -627,7 +627,7 @@ namespace ImageGlass {
                 thumbnailBar.Items[Local.CurrentIndex].Update();
             }
             else {
-                // KBR 20190804 Fix obscure issue: 
+                // KBR 20190804 Fix obscure issue:
                 // 1. Rotate/flip image with "IsSaveAfterRotating" is OFF
                 // 2. Move through images
                 // 3. Turn "IsSaveAfterRotating" ON
@@ -814,7 +814,7 @@ namespace ImageGlass {
                 else
                     picMain.Cursor = Cursors.Default;
 
-                // Part of Issue #485 fix: failure to disable timer after image load meant message 
+                // Part of Issue #485 fix: failure to disable timer after image load meant message
                 // could appear after image already loaded
                 if (!isbusy && _loadingTimer != null) {
                     _loadingTimer.Enabled = false;
@@ -1298,7 +1298,7 @@ namespace ImageGlass {
             #endregion
 
 
-            // Without Modifiers keys 
+            // Without Modifiers keys
             #region Without Modifiers keys
             if (hasNoMods) {
                 // Show main menu
@@ -2139,9 +2139,7 @@ namespace ImageGlass {
                             Height += newH - picMain.Height);
 
             // center window to screen
-            if (Configs.IsCenterWindowFit
-                || fullW > screen.WorkingArea.Width
-                || fullH > screen.WorkingArea.Height) {
+            if (Configs.IsCenterWindowFit) {
                 App.CenterFormToScreen(this);
             }
 
@@ -2579,7 +2577,7 @@ namespace ImageGlass {
                 // background color
                 picMain.BackColor = Configs.BackgroundColor;
 
-                // Load state of Toolbar 
+                // Load state of Toolbar
                 Configs.IsShowToolBar = !Configs.IsShowToolBar;
                 mnuMainToolbar_Click(null, EventArgs.Empty);
 
@@ -2705,7 +2703,7 @@ namespace ImageGlass {
                 #endregion
 
 
-                // Load state of IsWindowAlwaysOnTop value 
+                // Load state of IsWindowAlwaysOnTop value
                 this.TopMost = mnuMainAlwaysOnTop.Checked = Configs.IsWindowAlwaysOnTop;
 
                 // Load state of WindowFit mode setting
@@ -2917,7 +2915,7 @@ namespace ImageGlass {
             }
 
             // This message is sent when the form is dragged to a different monitor i.e. when
-            // the bigger part of its are is on the new monitor. 
+            // the bigger part of its are is on the new monitor.
             else if (m.Msg == DPIScaling.WM_DPICHANGED) {
                 DPIScaling.CurrentDPI = DPIScaling.LOWORD((int)m.WParam);
                 OnDpiChanged();
@@ -4126,7 +4124,7 @@ namespace ImageGlass {
                 if (File.Exists(text) || Directory.Exists(text)) {
                     PrepareLoading(text);
                 }
-                // get image from Base64string 
+                // get image from Base64string
                 else {
                     try {
                         picMain.Image = Heart.Photo.ConvertBase64ToBitmap(text);
@@ -4768,7 +4766,7 @@ namespace ImageGlass {
                     using var p = new Process();
                     var args = string.Format("setwallpaper \"{0}\" {1}", imgFile, (int)DesktopWallapaper.Style.Current);
 
-                    // Issue #326: first attempt to set wallpaper w/o privs. 
+                    // Issue #326: first attempt to set wallpaper w/o privs.
                     p.StartInfo.FileName = App.StartUpDir("igcmd.exe");
                     p.StartInfo.Arguments = args;
                     p.Start();
@@ -4906,7 +4904,7 @@ namespace ImageGlass {
             toolMain.Visible = Configs.IsShowToolBar;
             mnuMainToolbar.Checked = Configs.IsShowToolBar;
 
-            // Issue #554 
+            // Issue #554
             if (!_isManuallyZoomed) {
                 // Resize image to adapt when toolbar turned off
                 ApplyZoomMode(Configs.ZoomMode);
